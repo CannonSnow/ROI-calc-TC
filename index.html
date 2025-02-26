@@ -82,9 +82,9 @@
                 </div>
                 
                 <div class="mb-3">
-                    <label for="hourlyRate" class="form-label">Average hourly cost of security personnel ($/hr)</label>
-                    <input type="number" class="form-control" id="hourlyRate" value="62.50" min="1" step="0.01">
-                    <div class="input-help">Industry average: $62.50/hr for experienced GRC professionals</div>
+                    <label for="annualSalary" class="form-label">Salary of security personnel ($/Year)</label>
+                    <input type="number" class="form-control" id="annualSalary" value="130000" min="1" step="1000">
+                    <div class="input-help">Industry average: $120,000-$150,000/year for experienced GRC professionals in the tech industry</div>
                 </div>
             </div>
             
@@ -164,7 +164,10 @@
             // Get input values
             const requestsPerWeek = Math.max(1, parseInt(document.getElementById('requestsPerWeek').value) || 0);
             const minutesPerRequest = Math.max(1, parseInt(document.getElementById('minutesPerRequest').value) || 0);
-            const hourlyRate = Math.max(1, parseFloat(document.getElementById('hourlyRate').value) || 0);
+            const annualSalary = Math.max(1, parseFloat(document.getElementById('annualSalary').value) || 0);
+            
+            // Calculate hourly rate (assuming 2080 work hours per year = 40 hours * 52 weeks)
+            const hourlyRate = annualSalary / 2080;
             
             // Single request calculations
             const singleRequestTimeHours = minutesPerRequest / 60;
@@ -204,7 +207,7 @@
         // Add event listeners to inputs
         document.getElementById('requestsPerWeek').addEventListener('input', calculateROI);
         document.getElementById('minutesPerRequest').addEventListener('input', calculateROI);
-        document.getElementById('hourlyRate').addEventListener('input', calculateROI);
+        document.getElementById('annualSalary').addEventListener('input', calculateROI);
         
         // Initial calculation
         calculateROI();
